@@ -7,6 +7,7 @@
 /pages/페이지이름의폴더/slug 형식으로 만들면 된다.
 
 예시코드)
+```jsx
 function getServerSideProps({params}){
 const {name} =params;
 return {
@@ -20,6 +21,7 @@ return(
 <h1> Hello, {props.name}! </h1>
 )
 }
+```
 
 **주의할점**
 
@@ -30,14 +32,14 @@ getServerSideProps나 getStaticProps 함수는 반드시 객체를 반환해야 
 next에서 사용하는 useRouter훅은 useParams훅과 같은 역할을 한다. 방법은 동일하다.
 
 예시코드)
-
+```jsx
 import {useRouter}from "next/router"
 
 function Greet(){
 const {query} = useRouter();
 return <h1> Hello, {props.name}! </h1>
 }
-
+```
 ## 클라이언트에서의 내비게이션
 
 next js는 웹 사이트 성능을 최적화할 수 있는 많은 방법을 제공한다. 그중 하나가 바로 클라이언트에서 내비게이션을 처리하는 것이다.
@@ -48,7 +50,7 @@ next js는 웹 사이트 성능을 최적화할 수 있는 많은 방법을 제�
 - 동적 경로 매개 변수를 통해 페이지를 더 쉽게 연결할 수 있다. 예를 들어 / blog/[date[/[slug].js라는 페이지를 연결한다고 가정해보자 href 속성은 next js가 어떤 페이지를 렌더링해야 하는지 알려준다.
 
 복잡한 url을 사용한다면 href 속성에 객체를 전달할 수도 있습니다.
-
+```jsx
 <Link ref={{pathname:"/blog/[date]/[slug]"
 query:{
 date:"2020-01-01",
@@ -58,7 +60,7 @@ foo:"bar"
 }}>
 read post
 </Link>
-
+```
 위와 같은 링크를 클릭할시 next js는 http://루트경로/blog/2020-01-01/happy-new-year/foo:bar라는 주소로 연결될것 이다.
 
 ## router.push 메서드
@@ -68,7 +70,7 @@ link컴포넌트 대신 useRouter 훅을 사용해서 다른 페이지로 이동
 사용방법은 리액트에서의 useNavigation과 같은 방법으로 사용하면 된다.
 
 또한 **link태그와 마찬가지로 객체를 전달해서 더 복잡한 url로 이동할 수도 있다.**
-
+```jsx
 router.push({
 pathname:"/blog/[date]/[slug]",
 query:{
@@ -77,7 +79,7 @@ slug:"happy-new-year",
 foo:"bar"
 }
 })
-
+```
 ## 정적 자원 제공
 
 정적 자원은 이미지,폰트, 아이콘,컴파일한 css또는 js 파일과 같이 동적으로 변하지 않는 모든 종류의 파일을 의미 한다. 이런 정적 자원은 /public 디렉터리 안에 저장하는 방식으로 클라이언트에 쉽게 제공된다.
@@ -100,12 +102,12 @@ next js에서는 html의 모든 img 태그에 복잡한 srcset 속성값을 지�
 클라이언트가 이미지를 요구할때만 최적화 할 수 있다.
 
 화면 크기별로 이미지를 조절하고 싶다면 srcset 속성값을 사용해서 최적화 할 수 있다.이를 위해서는 정적 자원을 제공할 때 몇 가지 작업을 추가해야 하는데 next.js에서는 쉽게 처리 할 수 있다. next.config.js 파일에서 설정을 추가하고 image컴포넌트를 사용 하는것이다. 방법은 아래와 같다.
-
+```jsx
 module.exports={
 images:{
 domains:["images.unsplash.com"]
 }
-
+```
 위와 같이 세팅한후, Image컴포넌트를 사용하면 속성값에 따라서 사진이 늘어난 형태로 표시 된다.
 
 ## Image 태그의 layout속성
@@ -116,11 +118,11 @@ domains:["images.unsplash.com"]
 4. fill: 부모 요소의 가로와 세로 크기에 따라 이미지를 늘린다. layout에 fill을 지정한 경우 width와 height 속성값을 함께 지정할 수 없다. width/height 속성을 지정하는것중 하나만 가능하다.
 
 이미지 크기를 화면 크기에 따라 조절하고 싶다면 아래와 같이 수정하면 된다.
-
+```jsx
 <div style={{position:relative}>
 <Image src="" layout="fill" objectfill="cover"/>
 </div>
-
+```
 layout속성을 fill로 지정했기 때문에 부모요소의 div 크기에 영향을 받아서 기준이 되는 부모요소에 position relative를 지정해줘야 제대로 렌더링 된다.
 
 ## 외부 서비스를 통한 자동 이미지 최적화
